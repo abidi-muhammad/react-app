@@ -1,4 +1,4 @@
-name: Deploy to GoDaddy Root
+name: Deploy to GoDaddy
 
 on:
   push:
@@ -26,14 +26,21 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to GoDaddy Root
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          server: 107.180.116.40
-          username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
-          port: 22
-          local_path: './dist/'
-          remote_path: '/home/zqr09s96d5z9/public_html/qiamconsulting.com/'
-          sftp_only: true
-          delete_remote_files: true
+      - name: Deploy via SFTP with sshpass
+        env:
+          SSH_USER: ${{ secrets.SSH_USERNAME }}
+          SSH_PASS: ${{ secrets.SSH_PASSWORD }}
+          SSH_HOST: 107.180.116.40
+        run: |
+          # Install sshpass
+          sudo apt-get update
+          sudo apt-get install -y sshpass lftp
+          
+          # Use lftp for reliable upload (better than sftp for this)
+          lftp -c "
+          set sftp:auto-confirm yes;
+          open sftp://$SSH_USER:$SSH_PASS@$SSH_HOST;
+          cd /home/zqr09s96d5z9/public_html;
+          mirror --reverse --delete --verbose ./dist/ ./qiamconsulting.com/;
+          bye;
+          "
