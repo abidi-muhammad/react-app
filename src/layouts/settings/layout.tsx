@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Heading from '@/components/heading';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
@@ -48,6 +49,9 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                     'bg-muted': currentPath === item.href,
                                 })}
                             >
+                                <Link to={item.href}>
+                                    {item.title}
+                                </Link>
                             </Button>
                         ))}
                     </nav>
