@@ -1,4 +1,4 @@
-name: Deploy to GoDaddy via SSH
+name: Deploy to GoDaddy
 
 on:
   push:
@@ -26,14 +26,14 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: Deploy to GoDaddy via SSH
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy to GoDaddy via SFTP
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
-          host: 107.180.116.40
+          server: 107.180.116.40
           username: ${{ secrets.SSH_USERNAME }}
           password: ${{ secrets.SSH_PASSWORD }}
           port: 22
-          source: "dist/*"
-          target: "/home/zqr09s96d5z9/public_html/qiamconsulting.com/qiam/"
-          strip_components: 1
-          rm: true
+          local_path: './dist/*'
+          remote_path: '/home/zqr09s96d5z9/public_html/qiamconsulting.com/qiam'
+          sftp_only: true
+          delete_remote_files: true
