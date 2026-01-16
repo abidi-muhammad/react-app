@@ -3,7 +3,6 @@ import Home from '@/pages/client/home';
 import Services from '@/pages/client/services';
 import About from '@/pages/client/about';
 import Contact from '@/pages/client/contact';
-import AdminPage from '@/pages/admin';
 import './App.css';
 
 function App() {
@@ -13,7 +12,6 @@ function App() {
       <Route path="/services" element={<Services />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
-      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 }
