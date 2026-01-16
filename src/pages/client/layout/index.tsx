@@ -5,7 +5,6 @@ import { Menu, Moon, Sun, Cloud } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import MobileMenu from './mobile-menu';
 import Footer from './footer';
-import AdminPanel from '@/components/AdminPanel';
 
 const navLinks = [
   { name: 'Services', href: '/services' },
@@ -158,7 +157,6 @@ const Layout = ({ children }: LayoutProps) => {
 
       {/* Footer */}
       <Footer />
-      <AdminPanel />
     </div>
   );
 };
